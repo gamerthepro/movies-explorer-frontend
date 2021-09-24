@@ -1,0 +1,106 @@
+.menu{
+	display: none;
+	position: fixed;
+   width: 100vw;
+   height: 100vh;
+   background: rgba(0,0,0,.5);
+   transition: visibility .4s ease,opacity .4s ease;
+	z-index: 1;
+}
+
+.menu.active {
+	display: flex;
+   visibility: visible;
+   opacity: 1;
+}
+.menu__cantainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 520px;
+	min-height: 100vh;
+	background: #fff;
+	box-shadow: 0 0 25px rgb(0 0 0 / 15%);
+}
+
+.menu__button {
+	background-image: url(../../images/button__close.svg);
+	width: 22px;
+	height: 22px;
+	display: block;
+	position: absolute;
+	top: 22px;
+	right: 22px;
+	background-color: transparent;
+	border-style: none;
+	background-repeat: no-repeat;
+	background-position: 50%;
+	cursor: pointer;
+	transition: opacity 1s linear;
+	padding: 0;
+}
+
+.menu__button:hover {    
+   cursor: pointer;
+   opacity: 0.8;
+}
+
+.menu__links {
+	position: relative;
+	align-items: center;
+	padding: 0;
+	margin: 158px 90px auto;
+}
+
+.menu__item{
+	max-width: 340px;
+	min-height: 22px;
+	text-align: center;
+	list-style-type: none;
+	margin: auto auto 28px auto;
+}
+
+.menu__link {
+	font-weight: 500;
+	font-size: 18px;
+	line-height: 22px;
+	text-align: center;
+	text-decoration: none;
+	color: #000000;
+}
+
+.menu__link:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.menu__account {
+	max-width: 100px;
+	min-height: 32px;
+	justify-self: end;
+	text-align: center;
+	margin: auto 210px 90px 210px;
+}
+
+@media screen and (max-width: 520px) {
+	.menu__cantainer {
+		width: 320px;
+		height: 780px;
+	}
+
+	.menu__account {
+		margin: auto 110px 40px;
+	}
+
+	.menu__button {
+		top: 17px;
+		right: 17px;
+	}
+
+	.menu__links {
+		margin: 144px auto auto;
+	}
+}
