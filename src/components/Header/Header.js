@@ -1,5 +1,5 @@
 import './Header.css';
-import { NavLink, Switch, Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../../images/logo.svg';
 import BurgerMenu from "../BurgerMenu/BurgerMenu";
 import { useState } from 'react';
@@ -31,10 +31,18 @@ const Header = ({loggedIn}) => {
 					</div>
 					<div className="header__container ">
 						<div className="header__nav">
-							<NavLink to='/movies' className='header__nav-link header__nav-link-active'>
+							<NavLink 
+								to='/movies' 
+								className='header__nav-link'
+								activeClassName="header__nav-link-active"
+							>
 								Фильмы
 							</NavLink>
-							<NavLink to='/saved-movies' className='header__nav-link'>
+							<NavLink
+								to='/saved-movies'
+								className='header__nav-link'
+								activeClassName='header__nav-link-active'
+							>
 								Сохранённые фильмы
 							</NavLink>
 						</div>

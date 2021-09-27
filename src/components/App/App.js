@@ -40,7 +40,7 @@ function App() {
 	const [errorResponse, setErrorResponse] = useState('')
 
 	const history = useHistory();
-	const location = useLocation().pathname;
+	let location = useLocation().pathname;
 
 	//проверяем токен
 	const tokenCheck = () => {
@@ -48,12 +48,18 @@ function App() {
 		if (token) {
 			auth.getContent(token)
 			.then((res) => {
+				console.log(res)
 				if (res) {
-					setCurrentUser(res);
+					setCurrentUser(res.data);
+					setLoggedIn(true);
+					history.push(location);
 				}
-				setLoggedIn(true);
-				history.push(location);
 			})
+			.catch((err) => {
+				console.log(err);
+				localStorage.removeItem("token");
+				history.push("/");
+			});
 		}
 	}
 
@@ -61,27 +67,27 @@ function App() {
 		setIsLoading(true);
 		auth.signin(password, email)
 			.then((res) => {
-			if (res) {
-				setTimeout(() => {
-					setIsLoading(false);
-					setLoggedIn(true);
-					setCurrentUser(res.data);
+				if (res) {
+					setTimeout(() => {
+						setIsLoading(false);
+						setLoggedIn(true);
+						setCurrentUser(res.data);
 
-					localStorage.setItem('jwt', res.token);
-					history.push('/movies');
-				}, 500)
-			}
+						localStorage.setItem('jwt', res.token);
+						history.push('/movies');
+					}, 500)
+				}
 			})
 			.catch((err) => {
 			setIsLoading(false);
 			if (err === "Ошибка 400") {
-				return setErrorResponse("Не верно заполнено одно из полей");
+				return showResponseMessageTimer("Не верно заполнено одно из полей");
 			}
 			if (err === "Ошибка 401") {
-				return setErrorResponse("Неправильные почта или пароль");
+				return showResponseMessageTimer("Неправильные почта или пароль");
 			}
 			if (err === "Ошибка 500") {
-				return setErrorResponse("Что-то пошло не так. Попробуйте позже");
+				return showResponseMessageTimer("Что-то пошло не так. Попробуйте позже");
 			}
 			console.log(err);
 			});
@@ -101,13 +107,13 @@ function App() {
 			.catch((err) => {
 			setIsLoading(false);
 			if (err === "Ошибка 400") {
-				return setErrorResponse("Не верно заполнено одно из полей");
+				return showResponseMessageTimer("Не верно заполнено одно из полей");
 			}
 			if (err === "Ошибка 409") {
-				return setErrorResponse("Пользователь с таким имейлом уже существует");
+				return showResponseMessageTimer("Пользователь с таким имейлом уже существует");
 			}
 			if (err === "Ошибка 500") {
-				return setErrorResponse("Что-то пошло не так. Попробуйте позже");
+				return showResponseMessageTimer("Что-то пошло не так. Попробуйте позже");
 			}
 			console.log(err);
 			});
@@ -117,21 +123,21 @@ function App() {
 		setIsLoading(true);
 		mainApi.setUserInfo(name, email)
 			.then((res) => {
-			if (res) {
-				setTimeout(() => {
+				console.log(res)
+				if (res) {
 					setIsLoading(false);
 					setCurrentUser({
-					...currentUser,
-					name: res.name,
-					email: res.email,
+						...currentUser,
+						name: res.name,
+						email: res.email,
 					});
-				}, 500)
-			}
+					showResponseMessageTimer("Данные успешно обновлены");
+				}
 			})
 			.catch((err) => {
 			setIsLoading(false);
 			if (err === "Ошибка 500") {
-				return setErrorResponse("Что-то пошло не так. Попробуйте позже");
+				return showResponseMessageTimer("Что-то пошло не так. Попробуйте позже");
 			}
 			console.log(err);
 			});
@@ -141,6 +147,11 @@ function App() {
 		localStorage.removeItem('jwt');
 		setLoggedIn(false);
 		history.push('/');
+	}
+
+	const showResponseMessageTimer = (error) => {
+		setErrorResponse(error);
+		setTimeout(() => setErrorResponse(""), 10000);
 	}
 
 	// Проверяем токен
@@ -319,7 +330,9 @@ function App() {
 	}
 
 	const handleBookmarksStatus = (movie) => {
-		return savedMovies.some(savedMovie => savedMovie.movieId === movie.movieId);
+		return savedMovies.some(
+			(savedMovie) => savedMovie.movieId === movie.movieId
+		);
 	}
 
 	const isRenderGlobalComponents = () => {
@@ -371,6 +384,7 @@ function App() {
 					onEditProfile={ handleUpdateUser }
 					onLogout={ handleLogout }
 					component={ Profile }
+					userData={currentUser}
 					isLoading={ isLoading }
 					errorResponse={ errorResponse }
 				/>
