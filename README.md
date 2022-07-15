@@ -11,3 +11,10 @@ Git, GitHub, Postman, Visual Studio Code, Figma, PerfectPixel, Terminal, HTML5, 
 Сылка на backend ip 193.32.218.217
 
 Сылка на backend домен api.artem.movies.nomoredomains.monster
+
+$ \ color {red} {Внимение!}$
+На данный момент виртульная машина не работает (законились деньги), соответственно backend тоже. Вы можете просмотреть только первую странику перейдя по ссылкам:
+
+[frontend]
+
+[backend].https://github.com/gamerthepro/movies-explorer-api.git
