@@ -15,8 +15,8 @@ Git, GitHub, Postman, Visual Studio Code, Figma, PerfectPixel, Terminal, HTML5, 
 ## Внимение!
 ![logo](src/README.files/%D0%BA%D0%BE%D0%B3%D0%B4%D0%B0%20%D0%BA%D0%BE%D0%B4%20%D0%BD%D0%B5%20%D0%B7%D0%B0%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%B0%D0%BB.gif)
 
-На данный момент виртульная машина не работает (законились деньги), соответственно backend тоже. Вы можете просмотреть только первую странику перейдя по ссылкам:
+На данный момент виртульная машина не работает (законились деньги), соответственно backend тоже. Вы можете просмотреть только первую странику и backend перейдя по ссылкам:
 
-[frontend]
+[![frontend](https://img.shields.io/badge/-frontend-d2e7fb?style=for-the-badge)](https://github.com/gamerthepro/how-to-learn)
 
-[backend].https://github.com/gamerthepro/movies-explorer-api.git
+[![backend](https://img.shields.io/badge/-backend.._-d2e7fb?style=for-the-badge)](https://github.com/gamerthepro/movies-explorer-api.git)
